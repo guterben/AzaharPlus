@@ -150,6 +150,8 @@ option(ENABLE_SSE42 "Enable SSE4.2 optimizations on x86_64" OFF)
 
 option(ENABLE_DEVELOPER_OPTIONS "Enable functionality targeted at emulator developers" OFF)
 
+option(USE_SYSTEM_LIBZIP "Use the system-installed libzip" OFF)
+
 option(ENABLE_BUILTIN_KEYBLOB "Enable the inclusion of the default crypto keys blob" ON)
 
 # Compile options
