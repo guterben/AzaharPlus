@@ -561,8 +561,6 @@ endif()
 
 set(ENABLE_OPENSSL OFF CACHE BOOL "" FORCE)
 
-if(USE_SYSTEM_LIBZIP)
-    find_package(libzip CONFIG REQUIRED)
-else()
+if(NOT USE_SYSTEM_LIBZIP)
     add_subdirectory(libzip EXCLUDE_FROM_ALL)
 endif()
