@@ -560,4 +560,10 @@ if(NOT USE_SYSTEM_XXHASH)
 endif()
 
 set(ENABLE_OPENSSL OFF CACHE BOOL "" FORCE)
-add_subdirectory(libzip EXCLUDE_FROM_ALL)
+
+if(USE_SYSTEM_LIBZIP)
+    find_package(libzip CONFIG REQUIRED)
+    add_library(libzip::zip ALIAS libzip::zip) # if needed
+else()
+    add_subdirectory(libzip EXCLUDE_FROM_ALL)
+endif()
