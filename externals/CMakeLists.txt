@@ -65,9 +65,9 @@ endif()
 
 # Crypto++
 if(USE_SYSTEM_CRYPTOPP)
-    find_package(cryptopp REQUIRED)
-    add_library(cryptopp INTERFACE)
-    target_link_libraries(cryptopp INTERFACE cryptopp::cryptopp)
+    find_package(cryptopp-modern REQUIRED)
+    add_library(cryptopp-modern INTERFACE)
+    target_link_libraries(cryptopp-modern INTERFACE cryptopp::cryptopp)
 else()
     set(CRYPTOPP_BUILD_TESTING OFF CACHE BOOL "")
     set(CRYPTOPP_INSTALL OFF CACHE BOOL "")
