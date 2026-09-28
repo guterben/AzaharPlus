@@ -1,4 +1,4 @@
-// Copyright Citra Emulator Project / Azahar Emulator Project
+// Copyright 2023-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -113,8 +113,8 @@ static constexpr std::array<FormatTuple, 8> CUSTOM_TUPLES = {{
 
 } // Anonymous namespace
 
-TextureRuntime::TextureRuntime(const Driver& driver_, VideoCore::RendererBase& renderer)
-    : driver{driver_}, blit_helper{driver} {
+TextureRuntime::TextureRuntime(const Driver& driver_, VideoCore::RendererBase& renderer_)
+    : driver{driver_}, renderer{renderer_}, blit_helper{driver} {
     for (std::size_t i = 0; i < draw_fbos.size(); ++i) {
         draw_fbos[i].Create();
         read_fbos[i].Create();
@@ -123,9 +123,11 @@ TextureRuntime::TextureRuntime(const Driver& driver_, VideoCore::RendererBase& r
 
 TextureRuntime::~TextureRuntime() = default;
 
-u32 TextureRuntime::RemoveThreshold() {
-    return SWAP_CHAIN_SIZE;
+u64 TextureRuntime::GetResourceTick() {
+    return renderer.GetCurrentFrame();
 }
+
+void TextureRuntime::Finish() {}
 
 bool TextureRuntime::NeedsConversion(const Surface& surface) const {
     const auto& pixel_format = surface.pixel_format;
@@ -185,9 +187,9 @@ bool TextureRuntime::Reinterpret(Surface& source, Surface& dest,
     } else if (src_format == PixelFormat::RGBA4 && dst_format == PixelFormat::RGB5A1) {
         blit_helper.ConvertRGBA4ToRGB5A1(source, dest, copy);
     } else {
-        LOG_WARNING(Render_OpenGL, "Unimplemented reinterpretation {} -> {}",
-                    VideoCore::PixelFormatAsString(src_format),
-                    VideoCore::PixelFormatAsString(dst_format));
+        LOG_WARNING(Render_OpenGL, "Unimplemented reinterpretation {}({:#x}) -> {}({:#x})",
+                    VideoCore::PixelFormatAsString(src_format), source.Tuple().internal_format,
+                    VideoCore::PixelFormatAsString(dst_format), dest.Tuple().internal_format);
         return false;
     }
     return true;
@@ -360,7 +362,7 @@ Surface::Surface(TextureRuntime& runtime_, const VideoCore::SurfaceParams& param
 
 Surface::Surface(TextureRuntime& runtime_, const VideoCore::SurfaceBase& surface,
                  const VideoCore::Material* mat)
-    : SurfaceBase{surface, {}}, driver{&runtime_.GetDriver()}, runtime{&runtime_},
+    : SurfaceBase{surface}, driver{&runtime_.GetDriver()}, runtime{&runtime_},
       tuple{runtime_.GetFormatTuple(mat->format)} {
     if (mat && !driver->IsCustomFormatSupported(mat->format)) {
         return;
