@@ -508,7 +508,11 @@ create_target_directory_groups(citra_core)
 target_link_libraries(citra_core PUBLIC citra_common PRIVATE audio_core network video_core)
 target_link_libraries(citra_core PRIVATE Boost::boost Boost::serialization Boost::iostreams httplib)
 target_link_libraries(citra_core PUBLIC dds-ktx PRIVATE cryptopp fmt lodepng open_source_archives)
+if(USE_SYSTEM_LIBZIP)
+    find_package(libzip REQUIRED)
+endif()
 target_link_libraries(citra_core PRIVATE libzip::zip json-headers)
+
 
 if (ENABLE_WEB_SERVICE)
     target_link_libraries(citra_core PRIVATE web_service)

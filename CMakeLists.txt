@@ -150,6 +150,8 @@ option(ENABLE_SSE42 "Enable SSE4.2 optimizations on x86_64" OFF)
 
 option(ENABLE_DEVELOPER_OPTIONS "Enable functionality targeted at emulator developers" OFF)
 
+option(USE_SYSTEM_LIBZIP "Use the system-installed libzip" OFF)
+
 option(ENABLE_BUILTIN_KEYBLOB "Enable the inclusion of the default crypto keys blob" ON)
 
 # Compile options
@@ -531,6 +533,9 @@ add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY
     -DBOOST_REGEX_NO_LIB
 )
 if (USE_SYSTEM_BOOST)
+    if(POLICY CMP0167)
+        cmake_policy(SET CMP0167 NEW) #boost config policy
+    endif()
     find_package(Boost 1.70.0 COMPONENTS container locale serialization iostreams REQUIRED)
 endif()
 
