@@ -21,6 +21,7 @@ option(USE_SYSTEM_GLSLANG "Use the system glslang and SPIR-V libraries (instead 
 option(USE_SYSTEM_ZSTD "Use the system Zstandard library (instead of the bundled one)" OFF)
 option(USE_SYSTEM_ENET "Use the system libenet (instead of the bundled one)" OFF)
 option(USE_SYSTEM_CRYPTOPP "Use the system cryptopp (instead of the bundled one)" OFF)
+option(USE_SYSTEM_CRYPTOPP_MODERN "Use the system cryptopp-modern (instead of cryptopp lib)" OFF)
 option(USE_SYSTEM_CUBEB "Use the system cubeb (instead of the bundled one)" OFF)
 option(USE_SYSTEM_LODEPNG "Use the system lodepng (instead of the bundled one)" OFF)
 option(USE_SYSTEM_OPENAL "Use the system OpenAL (instead of the bundled one)" OFF)
