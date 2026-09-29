@@ -32,6 +32,8 @@ add_library(citra_common STATIC EXCLUDE_FROM_ALL
     error.cpp
     error.h
     expected.h
+    file_derived.cpp
+    file_derived.h
     file_util.cpp
     file_util.h
     hash.h
@@ -178,4 +180,11 @@ if (SSE42_COMPILE_OPTION)
     target_compile_options(citra_common PRIVATE ${SSE42_COMPILE_OPTION})
 endif()
 
-target_link_libraries(citra_common PUBLIC xxHash::xxhash)
+if(USE_SYSTEM_XXHASH)
+  pkg_check_modules(XXHASH REQUIRED libxxhash)
+  target_include_directories(citra_common PRIVATE ${XXHASH_INCLUDE_DIRS})
+  target_link_libraries(citra_common PRIVATE ${XXHASH_LIBRARIES})
+  target_compile_options(citra_common PRIVATE ${XXHASH_CFLAGS_OTHER})
+else()
+  target_link_libraries(citra_common PUBLIC xxHash::xxhash)
+endif()
