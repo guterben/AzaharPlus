@@ -65,7 +65,7 @@ endif()
 
 # Crypto++
 if(USE_SYSTEM_CRYPTOPP_MODERN)
-    find_package(cryptopp-modern REQUIRED)
+    find_package(cryptopp-modern REQUIRED COMPONENTS shared)
     add_library(cryptopp-modern INTERFACE)
     target_link_libraries(cryptopp-modern INTERFACE cryptopp::cryptopp)
 else()
