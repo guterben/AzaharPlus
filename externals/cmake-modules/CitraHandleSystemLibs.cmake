@@ -21,6 +21,7 @@ option(USE_SYSTEM_GLSLANG "Use the system glslang and SPIR-V libraries (instead 
 option(USE_SYSTEM_ZSTD "Use the system Zstandard library (instead of the bundled one)" OFF)
 option(USE_SYSTEM_ENET "Use the system libenet (instead of the bundled one)" OFF)
 option(USE_SYSTEM_CRYPTOPP "Use the system cryptopp (instead of the bundled one)" OFF)
+option(USE_SYSTEM_CRYPTOPP_MODERN "Use the system cryptopp-modern (instead of cryptopp lib)" OFF)
 option(USE_SYSTEM_CUBEB "Use the system cubeb (instead of the bundled one)" OFF)
 option(USE_SYSTEM_LODEPNG "Use the system lodepng (instead of the bundled one)" OFF)
 option(USE_SYSTEM_OPENAL "Use the system OpenAL (instead of the bundled one)" OFF)
@@ -28,6 +29,12 @@ option(USE_SYSTEM_VMA "Use the system VulkanMemoryAllocator (instead of the bund
 option(USE_SYSTEM_VULKAN_HEADERS "Use the system Vulkan headers (instead of the bundled ones)" OFF)
 option(USE_SYSTEM_SPIRV_HEADERS "Use the system SPIRV headers (instead of the bundled ones)" OFF)
 option(USE_SYSTEM_CATCH2 "Use the system Catch2 (instead of the bundled one)" OFF)
+option(USE_SYSTEM_XXHASH "Use the system xxHash (instead of the bundled one)" OFF)
+option(USE_SYSTEM_SPIRV_TOOLS "Use system-installed SPIRV-Tools" OFF)
+option(USE_SYSTEM_FAAD2 "Use the system faad2 lib (instead of the bundled one)" OFF)
+option(USE_SYSTEM_FAAD "Use the system faad lib (instead of faad2 lib)" OFF)
+option(USE_SYSTEM_TEAKRA "Use system teakra lib (instead of the bundled one)" OFF)
+
 
 # Qt and MoltenVK are handled separately
 CMAKE_DEPENDENT_OPTION(DISABLE_SYSTEM_SDL2 "Disable system SDL2" OFF "USE_SYSTEM_LIBS" OFF)
